@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\vcpkg.C.dev.vcpkg.1.0.0\build\native\vcpkg.C.dev.vcpkg.props" Condition="Exists('packages\vcpkg.C.dev.vcpkg.1.0.0\build\native\vcpkg.C.dev.vcpkg.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -96,7 +97,6 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\..\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -107,7 +107,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -117,7 +116,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Enable Debugger|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\</OutDir>
     <TargetName>$(ProjectName)_dbg</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Enable Debugger|x64'">
@@ -205,9 +203,7 @@
       <MapExports>true</MapExports>
       <LargeAddressAware>true</LargeAddressAware>
     </Link>
-    <ResourceCompile>
-      <Culture>0x0411</Culture>
-    </ResourceCompile>
+    <ResourceCompile />
     <PreBuildEvent>
       <Command>
       </Command>
@@ -781,6 +777,7 @@
     <ClCompile Include="..\visual\opengl\TextureIntf.cpp" />
     <ClCompile Include="..\visual\opengl\VertexBinderIntf.cpp" />
     <ClCompile Include="..\visual\opengl\VertexBufferIntf.cpp" />
+    <ClCompile Include="..\visual\LoadWEBP.cpp" />
     <ClCompile Include="..\visual\PrerenderedFont.cpp" />
     <ClCompile Include="..\visual\RectItf.cpp" />
     <ClCompile Include="..\visual\SaveTLG5.cpp" />
@@ -839,6 +836,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release Enable Debugger|x64'">true</ExcludedFromBuild>
     </CustomBuild>
     <None Include="option_desc_ja.json" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\external\baseclasses\BaseClasses.vcxproj">
@@ -883,5 +881,13 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\vcpkg.C.dev.vcpkg.1.0.0\build\native\vcpkg.C.dev.vcpkg.targets" Condition="Exists('packages\vcpkg.C.dev.vcpkg.1.0.0\build\native\vcpkg.C.dev.vcpkg.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\vcpkg.C.dev.vcpkg.1.0.0\build\native\vcpkg.C.dev.vcpkg.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\vcpkg.C.dev.vcpkg.1.0.0\build\native\vcpkg.C.dev.vcpkg.props'))" />
+    <Error Condition="!Exists('packages\vcpkg.C.dev.vcpkg.1.0.0\build\native\vcpkg.C.dev.vcpkg.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\vcpkg.C.dev.vcpkg.1.0.0\build\native\vcpkg.C.dev.vcpkg.targets'))" />
+  </Target>
 </Project>

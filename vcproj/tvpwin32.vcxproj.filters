@@ -1384,6 +1384,9 @@
     <ClCompile Include="..\movie\win32\MFByteStream.cpp">
       <Filter>movie\win32</Filter>
     </ClCompile>
+    <ClCompile Include="..\visual\LoadWEBP.cpp">
+      <Filter>visual</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="tvpwin32.rc">
@@ -1397,6 +1400,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="option_desc_ja.json" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\visual\IA32\tlg6_chroma.nas">

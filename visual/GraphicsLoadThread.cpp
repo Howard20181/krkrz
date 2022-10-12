@@ -201,7 +201,7 @@ void tTVPAsyncImageLoader::LoadRequest( iTJSDispatch2 *owner, tTJSNI_Bitmap* bmp
 		TVPThrowExceptionMessage(TVPCannotFindStorage, name);
 	}
 	ttstr ext = TVPExtractStorageExt(name);
-	if(ext == TJS_W("")) {
+	if(ext.IsEmpty()) {
 		TVPThrowExceptionMessage(TJS_W("Filename extension not found/%1"), name);
 	}
 
@@ -258,12 +258,12 @@ void tTVPAsyncImageLoader::LoadingThread() {
 	}
 }
 void tTVPAsyncImageLoader::LoadImageFromCommand( tTVPImageLoadCommand* cmd ) {
-	ttstr ext = TVPExtractStorageExt(cmd->path_);
+	ttstr path = cmd->path_;
 	tTVPGraphicHandlerType* handler = NULL;
-	if(ext == TJS_W("")) {
-		cmd->result_ = TJS_W("Filename extension not found");
+	if(path.IsEmpty()) {
+		cmd->result_ = TJS_W("Filename not found");
 	} else {
-		handler = TVPGetGraphicLoadHandler(ext);
+		handler = TVPGetGraphicLoadHandler(path);
 	}
 	if( handler ) {
 		try {
